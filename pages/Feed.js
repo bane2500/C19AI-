@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, FlatList } from "react-native";
 import { SearchBar } from "react-native-elements";
 import BusinessList from "../components/listing";
+
 export default function Feed() {
   // Hooks implementation of searchbar in react-native
   const [searchText, setSearchText] = useState("");
@@ -14,7 +15,7 @@ export default function Feed() {
     //For simplicity sakes, mask and occupancy will be in percentage, distance in miles
     {
       name: "Taco Cabana",
-      hours: [9, 17],
+      hours: ["9:00 AM", "5:00 PM"],
       mask: 80,
       occupancy: 40,
       distance: 3,
@@ -22,7 +23,7 @@ export default function Feed() {
     },
     {
       name: "TJ's Mormon Shop",
-      hours: [8, 10],
+      hours: ["8:00 AM", "10:00 AM"],
       mask: 20,
       occupancy: 60,
       distance: 5,
@@ -30,7 +31,7 @@ export default function Feed() {
     },
     {
       name: "Beanstalk Cafe",
-      hours: [12, 18],
+      hours: ["12:00 PM", "6:00 PM"],
       mask: 65,
       occupancy: 80,
       distance: 7,
@@ -38,15 +39,53 @@ export default function Feed() {
     },
     {
       name: "LittleField Cafe",
-      hours: [14, 17],
+      hours: ["2:00 PM", "10:00 PM"],
       mask: 100,
       occupancy: 1,
       distance: 8,
       id: "4",
     },
+    {
+      name: "Jay's Burrito Joint",
+      hours: ["12:00 PM", "6:00 PM"],
+      mask: 65,
+      occupancy: 80,
+      distance: 7,
+      id: "5",
+    },
+    {
+      name: "Beanstalk Cafe",
+      hours: ["12:00 PM", "6:00 PM"],
+      mask: 65,
+      occupancy: 80,
+      distance: 7,
+      id: "6",
+    },
+    {
+      name: "LittleField Cafe",
+      hours: ["2:00 PM", "10:00 PM"],
+      mask: 100,
+      occupancy: 1,
+      distance: 8,
+      id: "7",
+    },
+    {
+      name: "Beanstalk Cafe",
+      hours: ["12:00 PM", "6:00 PM"],
+      mask: 65,
+      occupancy: 80,
+      distance: 7,
+      id: "8",
+    },
   ];
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <SearchBar
         placeholder="Search for businesses here"
         platform="ios" // Todo: get this working on android as well
