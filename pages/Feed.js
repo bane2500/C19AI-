@@ -6,6 +6,7 @@ import BusinessList from "../components/listing";
 export default function Feed() {
   // Hooks implementation of searchbar in react-native
   const [searchText, setSearchText] = useState("");
+
   const updateText = (event) => {
     setSearchText(event);
   };
@@ -48,21 +49,21 @@ export default function Feed() {
     {
       name: "Jay's Burrito Joint",
       hours: ["12:00 PM", "6:00 PM"],
-      mask: 65,
+      mask: 70,
       occupancy: 80,
       distance: 7,
       id: "5",
     },
     {
-      name: "Beanstalk Cafe",
+      name: "Covfefe",
       hours: ["12:00 PM", "6:00 PM"],
-      mask: 65,
-      occupancy: 80,
+      mask: 50,
+      occupancy: 18,
       distance: 7,
       id: "6",
     },
     {
-      name: "LittleField Cafe",
+      name: "Oh You're Approaching Me",
       hours: ["2:00 PM", "10:00 PM"],
       mask: 100,
       occupancy: 1,
@@ -70,7 +71,7 @@ export default function Feed() {
       id: "7",
     },
     {
-      name: "Beanstalk Cafe",
+      name: "H-Mart",
       hours: ["12:00 PM", "6:00 PM"],
       mask: 65,
       occupancy: 80,

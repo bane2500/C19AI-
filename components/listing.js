@@ -1,5 +1,6 @@
 // A custom Listing Component made from Flatlist
 import { StyleSheet } from "react-native";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, FlatList, List } from "react-native";
 export default function BusinessList({ list }) {
@@ -13,10 +14,11 @@ export default function BusinessList({ list }) {
       />
     );
   };
-
   return (
     <View style={styles.gloablContainer}>
       <FlatList
+        initialNumToRender={1}
+        onEndReachedThreshold={0.5}
         keyExtractor={(item) => `list-item-${item.id}`}
         data={list}
         ItemSeparatorComponent={renderSeparator}
@@ -43,10 +45,43 @@ export default function BusinessList({ list }) {
             </View>
             <View style={styles.bottom}>
               <View style={styles.bottomComponent}>
-                <Text>Mask Usage: {item.mask}%</Text>
+                <AnimatedCircularProgress
+                  rotation={0}
+                  size={110}
+                  width={8}
+                  backgroundWidth={18}
+                  fill={(item.mask / 100) * 100}
+                  duration={1000}
+                  tintColor={item.mask < 70 ? "#ec2213" : "#37CE6A"}
+                  backgroundColor="#3D5875"
+                >
+                  {(fill) => (
+                    <Text style={styles.points}>
+                      Mask{"\n"}
+                      {Math.round((100 * ((item.mask / 100) * 100)) / 100)}%
+                    </Text>
+                  )}
+                </AnimatedCircularProgress>
               </View>
               <View style={styles.bottomComponent}>
-                <Text>Store Occupancy: {item.occupancy}%</Text>
+                <AnimatedCircularProgress
+                  rotation={0}
+                  size={110}
+                  width={8}
+                  backgroundWidth={18}
+                  fill={(item.occupancy / 100) * 100}
+                  duration={1000}
+                  tintColor={item.occupancy > 50 ? "#ec2213" : "#37CE6A"}
+                  backgroundColor="#3D5875"
+                >
+                  {(fill) => (
+                    <Text style={styles.points}>
+                      Ocp.{"\n"}
+                      {Math.round((100 * ((item.occupancy / 100) * 100)) / 100)}
+                      %
+                    </Text>
+                  )}
+                </AnimatedCircularProgress>
               </View>
             </View>
           </View>
@@ -57,6 +92,12 @@ export default function BusinessList({ list }) {
 }
 
 const styles = StyleSheet.create({
+  points: {
+    textAlign: "center",
+    color: "#7591af",
+    fontSize: 20,
+    fontWeight: "100",
+  },
   gloablContainer: {
     flex: 1,
     width: "90%",
@@ -84,7 +125,7 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 1,
     flexDirection: "row",
-    height: 100,
+    height: 125,
     width: "90%",
   },
   bottomComponent: {
