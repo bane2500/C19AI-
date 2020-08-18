@@ -65,8 +65,8 @@ export default function BusinessList({ list, maxDistance }) {
                   progress={item.mask / 100}
                   style={{ marginBottom: 10 }}
                   color={
-                    item.mask >= 70
-                      ? item.mask <= 85
+                    item.mask >= 50
+                      ? item.mask <= 80
                         ? "#fcbe03"
                         : "#37CE6A"
                       : "red"
