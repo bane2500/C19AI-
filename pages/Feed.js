@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, FlatList, Slider } from "react-native";
 import { SearchBar } from "react-native-elements";
 import BusinessList from "../components/listing";
-
 export default function Feed() {
   // Hooks implementation of searchbar in react-native
   const [searchText, setSearchText] = useState("");
@@ -18,11 +17,10 @@ export default function Feed() {
   };
 
   // Yelp Fusion API
-  const key =
-    "XQKOmqLgozPml4qy2T_b3eKATaVbbVYgtEY2TJgjeeSAwmcgd0_b2LUtlPAQ-bSVMP6q2II6EAr-o6Q0XJrAeKs0xnAzD7Dot6KsVQIdsVfu5sjI15Kx9dR78dbfXnYx";
-  const url = `https://api.yelp.com/v3/businesses/search?location=Holmdel&radius=${
+  const key = "<Your API KEY HERE>";
+  const url = `https://api.yelp.com/v3/businesses/search?location=Plano&radius=${
     1600 * distance
-  }
+  }&limit=50
   `;
   useEffect(() => {
     fetch(url, {
@@ -50,8 +48,10 @@ export default function Feed() {
         });
       })
       .then((result) => {
+        console.log(result.length);
         setRealBusiness(result);
       });
+    //console.log(config.API_URL);
   }, [distance]);
   //Dummy Data for businesses
   const businesses = [

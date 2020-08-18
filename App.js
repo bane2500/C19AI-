@@ -15,7 +15,6 @@ const Tab = createMaterialTopTabNavigator();
 
 // Stack Navigation
 const Stack = createStackNavigator();
-
 function MyTabs() {
   return (
     <Tab.Navigator

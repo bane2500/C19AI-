@@ -48,20 +48,22 @@ export default function BusinessList({ list, maxDistance }) {
                   maxWidth: "100%",
                 }}
                 // Todo: custom images for restaurants
-                source={{
-                  uri: item.image,
-                }}
+                source={
+                  item.image == ""
+                    ? require("../assets/chinese.jpg")
+                    : {
+                        uri: item.image,
+                      }
+                }
               />
             </View>
             <View style={styles.bottom}>
               <View style={styles.bottomComponent}>
-                <Text style={styles.points}>
-                  {Math.round((100 * ((item.mask / 100) * 100)) / 100)}%{"\n"}
-                  Wearing Masks
-                </Text>
+                <Text style={styles.pointsWithSpace}>Wearing Masks</Text>
 
                 <ProgressBar
                   progress={item.mask / 100}
+                  style={{ marginBottom: 10 }}
                   color={
                     item.mask >= 70
                       ? item.mask <= 85
@@ -69,7 +71,10 @@ export default function BusinessList({ list, maxDistance }) {
                         : "#37CE6A"
                       : "red"
                   }
-                ></ProgressBar>
+                />
+                <Text style={styles.pointsWithSpace}>
+                  {Math.round((100 * ((item.mask / 100) * 100)) / 100)}%
+                </Text>
               </View>
               <View style={styles.bottomComponent}>
                 <AnimatedCircularProgress
@@ -105,6 +110,13 @@ const styles = StyleSheet.create({
     color: "#7591af",
     fontSize: 20,
     fontWeight: "100",
+  },
+  pointsWithSpace: {
+    textAlign: "center",
+    color: "#7591af",
+    fontSize: 20,
+    fontWeight: "100",
+    paddingBottom: 10,
   },
   gloablContainer: {
     flex: 1,
