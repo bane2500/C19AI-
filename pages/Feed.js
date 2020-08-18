@@ -79,7 +79,7 @@ export default function Feed() {
     {
       name: "H-Mart",
       hours: ["12:00 PM", "6:00 PM"],
-      mask: 65,
+      mask: 86,
       occupancy: 80,
       distance: 9,
       id: "8",

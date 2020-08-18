@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, FlatList, List } from "react-native";
+import ProgressBar from "react-native-progress/Bar";
+import { spring } from "react-native-reanimated";
+
 export default function BusinessList({ list, maxDistance }) {
   const renderSeparator = () => {
     return (
@@ -14,6 +17,7 @@ export default function BusinessList({ list, maxDistance }) {
       />
     );
   };
+  //data, renderItem
   return (
     <View style={styles.gloablContainer}>
       <FlatList
@@ -47,23 +51,21 @@ export default function BusinessList({ list, maxDistance }) {
             </View>
             <View style={styles.bottom}>
               <View style={styles.bottomComponent}>
-                <AnimatedCircularProgress
-                  rotation={0}
-                  size={110}
-                  width={8}
-                  backgroundWidth={18}
-                  fill={(item.mask / 100) * 100}
-                  duration={1000}
-                  tintColor={item.mask < 70 ? "#ec2213" : "#37CE6A"}
-                  backgroundColor="#3D5875"
-                >
-                  {(fill) => (
-                    <Text style={styles.points}>
-                      Mask{"\n"}
-                      {Math.round((100 * ((item.mask / 100) * 100)) / 100)}%
-                    </Text>
-                  )}
-                </AnimatedCircularProgress>
+                <Text style={styles.points}>
+                  {Math.round((100 * ((item.mask / 100) * 100)) / 100)}%{"\n"}
+                  Wearing Masks
+                </Text>
+
+                <ProgressBar
+                  progress={item.mask / 100}
+                  color={
+                    item.mask >= 70
+                      ? item.mask <= 85
+                        ? "#fcbe03"
+                        : "#37CE6A"
+                      : "red"
+                  }
+                ></ProgressBar>
               </View>
               <View style={styles.bottomComponent}>
                 <AnimatedCircularProgress
@@ -76,7 +78,7 @@ export default function BusinessList({ list, maxDistance }) {
                   tintColor={item.occupancy > 50 ? "#ec2213" : "#37CE6A"}
                   backgroundColor="#3D5875"
                 >
-                  {(fill) => (
+                  {() => (
                     <Text style={styles.points}>
                       Ocp.{"\n"}
                       {Math.round((100 * ((item.occupancy / 100) * 100)) / 100)}
@@ -141,5 +143,8 @@ const styles = StyleSheet.create({
   },
   setColorGreen: {
     color: "#37CE6A",
+  },
+  setColorRed: {
+    color: "#FF0000",
   },
 });
