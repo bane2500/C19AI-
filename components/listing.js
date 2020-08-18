@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, FlatList, List } from "react-native";
-export default function BusinessList({ list }) {
+export default function BusinessList({ list, maxDistance }) {
   const renderSeparator = () => {
     return (
       <View
@@ -20,7 +20,9 @@ export default function BusinessList({ list }) {
         initialNumToRender={1}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => `list-item-${item.id}`}
-        data={list}
+        data={list.filter((item) => {
+          return item.distance <= maxDistance;
+        })}
         ItemSeparatorComponent={renderSeparator}
         renderItem={({ item }) => (
           <View style={styles.generalContainer}>

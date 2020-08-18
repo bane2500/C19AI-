@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList, Slider } from "react-native";
 import { SearchBar } from "react-native-elements";
 import BusinessList from "../components/listing";
 
@@ -7,8 +7,14 @@ export default function Feed() {
   // Hooks implementation of searchbar in react-native
   const [searchText, setSearchText] = useState("");
 
+  // dummy distance will be shown updating as the slider slides, distance will only update when the slider completes
+  const [dummyDistance, setDummyDistance] = useState(10);
+  const [distance, setDistance] = useState(10);
   const updateText = (event) => {
     setSearchText(event);
+  };
+  const slidingComplete = (value) => {
+    setDistance(dummyDistance);
   };
 
   //Dummy Data for businesses
@@ -51,7 +57,7 @@ export default function Feed() {
       hours: ["12:00 PM", "6:00 PM"],
       mask: 70,
       occupancy: 80,
-      distance: 7,
+      distance: 12,
       id: "5",
     },
     {
@@ -59,7 +65,7 @@ export default function Feed() {
       hours: ["12:00 PM", "6:00 PM"],
       mask: 50,
       occupancy: 18,
-      distance: 7,
+      distance: 14,
       id: "6",
     },
     {
@@ -67,7 +73,7 @@ export default function Feed() {
       hours: ["2:00 PM", "10:00 PM"],
       mask: 100,
       occupancy: 1,
-      distance: 8,
+      distance: 1,
       id: "7",
     },
     {
@@ -75,7 +81,7 @@ export default function Feed() {
       hours: ["12:00 PM", "6:00 PM"],
       mask: 65,
       occupancy: 80,
-      distance: 7,
+      distance: 9,
       id: "8",
     },
   ];
@@ -93,7 +99,31 @@ export default function Feed() {
         onChangeText={updateText}
         value={searchText}
       />
-      <BusinessList list={businesses} />
+      <Text>
+        Distance: {dummyDistance} {dummyDistance <= 1 ? "Mile" : "Miles"}
+      </Text>
+      <Slider
+        value={dummyDistance}
+        style={styles.slider}
+        minimumValue={1}
+        maximumValue={20}
+        step={1}
+        valueLabelDisplay="auto"
+        onValueChange={(value) => setDummyDistance(parseInt(value))}
+        onSlidingComplete={slidingComplete}
+      />
+      <BusinessList maxDistance={distance} list={businesses} />
     </View>
   );
 }
+const styles = StyleSheet.create({
+  slider: {
+    width: "80%",
+  },
+  points: {
+    textAlign: "center",
+    color: "#7591af",
+    fontSize: 20,
+    fontWeight: "100",
+  },
+});
