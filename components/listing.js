@@ -36,13 +36,17 @@ export default function BusinessList({ list, maxDistance }) {
             </View>
             <View style={styles.storeImage}>
               <Image
-                style={{ flex: 1, maxHeight: "100%", maxWidth: "100%" }}
+                style={{
+                  flex: 1,
+                  height: 150,
+                  width: 300,
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                }}
                 // Todo: custom images for restaurants
-                source={
-                  !(item.name.length % 2)
-                    ? require("../assets/og-share-image-2.jpeg")
-                    : require("../assets/chinese.jpg")
-                }
+                source={{
+                  uri: item.image,
+                }}
               />
             </View>
             <View style={styles.bottom}>
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: "90%",
-    height: 100,
+    height: 150,
     marginBottom: 10,
   },
   bottom: {

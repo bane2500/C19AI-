@@ -8,8 +8,8 @@ export default function Feed() {
   const [searchText, setSearchText] = useState("");
 
   // dummy distance will be shown updating as the slider slides, distance will only update when the slider completes
-  const [dummyDistance, setDummyDistance] = useState(10);
-  const [distance, setDistance] = useState(10);
+  const [dummyDistance, setDummyDistance] = useState(2);
+  const [distance, setDistance] = useState(2);
   const updateText = (event) => {
     setSearchText(event);
   };
@@ -17,6 +17,42 @@ export default function Feed() {
     setDistance(dummyDistance);
   };
 
+  // Yelp Fusion API
+  const key =
+    "XQKOmqLgozPml4qy2T_b3eKATaVbbVYgtEY2TJgjeeSAwmcgd0_b2LUtlPAQ-bSVMP6q2II6EAr-o6Q0XJrAeKs0xnAzD7Dot6KsVQIdsVfu5sjI15Kx9dR78dbfXnYx";
+  const url = `https://api.yelp.com/v3/businesses/search?location=Holmdel&radius=${
+    1600 * distance
+  }
+  `;
+  useEffect(() => {
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${key}`,
+        Origin: "localhost",
+        withCredentials: true,
+      },
+    })
+      .then((result) => result.json())
+      .then((result) => {
+        return result.businesses;
+      })
+      .then((result) => {
+        return result.map((business, index) => {
+          return {
+            name: business.name,
+            image: business.image_url,
+            distance: Math.ceil(business.distance / 1600),
+            mask: Math.random() * 100,
+            occupancy: Math.random() * 100,
+            id: index,
+            hours: ["9:00 AM", "5:00 PM"],
+          };
+        });
+      })
+      .then((result) => {
+        setRealBusiness(result);
+      });
+  }, [distance]);
   //Dummy Data for businesses
   const businesses = [
     //For simplicity sakes, mask and occupancy will be in percentage, distance in miles
@@ -85,6 +121,7 @@ export default function Feed() {
       id: "8",
     },
   ];
+  const [realBusiness, setRealBusiness] = useState([]);
   return (
     <View
       style={{
@@ -112,7 +149,7 @@ export default function Feed() {
         onValueChange={(value) => setDummyDistance(parseInt(value))}
         onSlidingComplete={slidingComplete}
       />
-      <BusinessList maxDistance={distance} list={businesses} />
+      <BusinessList maxDistance={distance} list={realBusiness} />
     </View>
   );
 }
