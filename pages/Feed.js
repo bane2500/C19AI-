@@ -17,7 +17,8 @@ export default function Feed() {
   };
 
   // Yelp Fusion API
-  const key = "<Your API KEY HERE>";
+  const key =
+    "XQKOmqLgozPml4qy2T_b3eKATaVbbVYgtEY2TJgjeeSAwmcgd0_b2LUtlPAQ-bSVMP6q2II6EAr-o6Q0XJrAeKs0xnAzD7Dot6KsVQIdsVfu5sjI15Kx9dR78dbfXnYx";
   const url = `https://api.yelp.com/v3/businesses/search?location=Plano&radius=${
     1600 * distance
   }&limit=50

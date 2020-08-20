@@ -4,6 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { FontAwesome, Fontisto, Ionicons } from "@expo/vector-icons";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+  gql,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 // Main pages to design/develop
 import Feed from "./pages/Feed";
@@ -15,6 +23,31 @@ const Tab = createMaterialTopTabNavigator();
 
 // Stack Navigation
 const Stack = createStackNavigator();
+
+//API KEY
+const key = "<YOUR API KEY HERE>";
+
+// Apollo
+const httpLink = createHttpLink({
+  uri: "https://api.yelp.com/v3/graphql",
+  credentials: "same-origin",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = key;
+  return {
+    headers: {
+      authorization: token ? `Bearer ${token}` : "",
+      "Content-Type": "application/graphql",
+    },
+  };
+});
+// Apollo Client
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
 function MyTabs() {
   return (
     <Tab.Navigator
@@ -87,10 +120,12 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Beanstalk" component={MyTabs} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Beanstalk" component={MyTabs} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
