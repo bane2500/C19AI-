@@ -1,10 +1,22 @@
 // A custom Listing Component made from Flatlist
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  Button,
+  View,
+  SafeAreaView,
+  Text,
+  Alert,
+  Image,
+  FlatList,
+  List,
+  TouchableHighlight,
+} from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, FlatList, List } from "react-native";
 import ProgressBar from "react-native-progress/Bar";
+import { FontAwesome, Fontisto, Ionicons } from "@expo/vector-icons";
 import { spring } from "react-native-reanimated";
+import { Circle } from "react-native-svg";
 
 export default function BusinessList({ list, maxDistance }) {
   const renderSeparator = () => {
@@ -34,6 +46,16 @@ export default function BusinessList({ list, maxDistance }) {
               <Text style={[styles.setFontSize, styles.setColorGreen]}>
                 {item.name}
               </Text>
+              <TouchableHighlight
+                onPress={() => {
+                  console.log("Touched");
+                }}
+              >
+                <View>
+                  <FontAwesome name="info-circle" />
+                </View>
+              </TouchableHighlight>
+
               <Text>
                 OPEN: {item.hours[0]} to {item.hours[1]}
               </Text>
@@ -163,4 +185,5 @@ const styles = StyleSheet.create({
   setColorRed: {
     color: "#FF0000",
   },
+  infoCircle: {},
 });

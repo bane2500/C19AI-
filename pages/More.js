@@ -15,10 +15,10 @@ const getTestQuery = gql`
 `;
 
 export default function More() {
-  const { loading, error, data } = useQuery(getTestQuery);
-  useEffect(() => {
-    fetch("https://api.yelp.com/v3/graphql", {});
-  });
+  // const { loading, error, data } = useQuery(getTestQuery);
+  // useEffect(() => {
+  //   fetch("https://api.yelp.com/v3/graphql", {});
+  // });
 
   return (
     <View>
